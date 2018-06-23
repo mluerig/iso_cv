@@ -16,7 +16,7 @@
 
 ## introduction
 
-**iso-cv** (isopod-computervision) is a collection of scripts I wrote for "high-throughput" phenotyping of the freshwater isopod *Asellus aquaticus* using the opencv library in python. Here I explain the basic working principles and workflow. For the scientific background refer to [http://luerig.net/Research/#Isopods](http://luerig.net/Research/#Isopods). For more detailed information on the actual code refer to the inline annotations inside the python scripts.
+**iso-cv** (isopod-computervision) is a collection of scripts for "next-gen-phenotyping" using the opencv library in python. These scripts have been tested using the freshwater isopod *Asellus aquaticus*, for the scientific background refer to [http://luerig.net/Research/#Isopods](http://luerig.net/Research/#Isopods). For more detailed information on the actual code refer to the inline annotations inside the python scripts.
 
 **Please feel free to get in touch with me if you need help running the script or have questions about customizing it for your own study-system/organism: [contact @ eawag](http://www.eawag.ch/en/aboutus/portrait/organisation/staff/profile/moritz-luerig/show/)**
 
