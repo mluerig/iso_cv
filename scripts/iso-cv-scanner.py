@@ -17,13 +17,13 @@ import math
         
 #%% directories
 
-# name your project directory 
-my_project_dir = "iso-cv"
+# ==> ENTER THE ABSOLUTE PATH TO YOUR PROJECT DIR HERE, THE SUBFOLDERS ARE MADE FOR YOU
+my_project_dir = "E:\\Python1\\iso-cv\\Sandbox"
 
-if not os.getcwd() == os.path.join(os.path.abspath('..') , my_project_dir):
-    if not os.path.exists(os.path.join(os.path.abspath('..') , my_project_dir)):
-        os.makedirs(os.path.join(os.path.abspath('..') , my_project_dir))
-    os.chdir(os.path.join(os.path.abspath('..'), my_project_dir))
+if not os.getcwd() == my_project_dir:
+    if not os.path.exists(my_project_dir):
+        os.makedirs(my_project_dir)
+    os.chdir(my_project_dir)
 
 # you need these folders:
 in_dir = "in" # raw colour images
@@ -179,7 +179,7 @@ for i in os.listdir(os.path.join(main, in_dir)):
                     cv2.putText(img, str(idx),(a,b), cv2.FONT_HERSHEY_SIMPLEX, 2,(255,255,255),7,cv2.LINE_AA)
 
 # save control image                    
-        cv2.imwrite(os.path.join(out_dir , i[0:len(i)-4] + '_' + 'output.jpg'), img)   
+        cv2.imwrite(os.path.join(main, out_dir , i[0:len(i)-4] + '_' + 'output.jpg'), img)   
         print(i)
 
 
