@@ -23,7 +23,7 @@ my_project_dir = "iso-cv"
 if not os.getcwd() == os.path.join(os.path.abspath('..') , my_project_dir):
     if not os.path.exists(os.path.join(os.path.abspath('..') , my_project_dir)):
         os.makedirs(os.path.join(os.path.abspath('..') , my_project_dir))
-    os.chdir(my_project_dir)
+    os.chdir(os.path.join(os.path.abspath('..'), my_project_dir))
 
 # you need these folders:
 in_dir = "in" # raw colour images
