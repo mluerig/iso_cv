@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created: 2016/03/31
-Last Update: 2018/06/23
+Last Update: 2018/06/26
 Version 0.1.3
 @author: Moritz Lürig
 """
@@ -17,25 +17,25 @@ import math
         
 #%% directories
 
-# ==> ENTER THE ABSOLUTE PATH TO YOUR PROJECT DIR HERE, THE SUBFOLDERS ARE MADE FOR YOU
-my_project_dir = "E:\\Python1\\iso-cv\\Sandbox"
+# ENTER THE ABSOLUTE PATH TO YOUR PROJECT DIR HERE, THE SUBFOLDERS ARE MADE FOR YOU
+my_project_dir = "E:/Python1/iso-cv"
 
+# SUBDIRS - no need to touch this
+in_dir = "in" # directory with raw files -> PUT YOUR IMAGES HERE
+out_dir = "out" # output directory with control images and text files
+main = os.path.join(os.getcwd(),"examples", "scanner") # folders are inside a main working directory
+
+# AUTOMATICALLY CREATE AND CD TO PROJECT DIR 
 if not os.getcwd() == my_project_dir:
     if not os.path.exists(my_project_dir):
         os.makedirs(my_project_dir)
     os.chdir(my_project_dir)
 
-# you need these folders:
-in_dir = "in" # raw colour images
-out_dir = "out" # output directory with control images and text files
-
-# they should be inside a main working directory
-main = os.path.join(os.getcwd(), "python", "scanner")
-
-# if they don't exist, create them 
+# AUTOMATICALLY CREATE SUBDIRS
 for folder in [in_dir, out_dir]:
     if not os.path.exists(os.path.join(main, folder)):
-        os.makedirs(os.path.join(os.getcwd(), "python", "scanner",  folder))
+        os.makedirs(os.path.join(os.getcwd(), main, folder))
+
 
 #%% set detection and phenotyping parameters
 # objects are detected thresholding (colour/grayscale inage to binary image). objects can then be cleaned by performing morphological operations on images (see https://docs.opencv.org/3.4/d9/d61/tutorial_py_morphological_ops.html). objects are "closed" first and then "opened"

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created: 2017/10/25
-Last Update: 2018/06/23
+Last Update: 2018/06/26
 Version 0.1.9
 @author: Moritz Lürig
 """
@@ -23,26 +23,25 @@ def get_picture_date(path):                           # extracts dates from pict
         
 #%% directories
 
-# name your project directory 
-my_project_dir = "iso-cv"
+# ENTER THE ABSOLUTE PATH TO YOUR PROJECT DIR HERE, THE SUBFOLDERS ARE MADE FOR YOU
+my_project_dir = "E:/Python1/iso-cv"
 
-if not os.getcwd() == os.path.join(os.path.abspath('..') , my_project_dir):
-    if not os.path.exists(os.path.join(os.path.abspath('..') , my_project_dir)):
-        os.makedirs(os.path.join(os.path.abspath('..') , my_project_dir))
+# SUBDIRS - no need to touch this
+in_dir = "in" # directory with raw files -> PUT YOUR IMAGES HERE
+gray_dir = "gray" # converted and histogram adjusted images
+out_dir = "out" # output directory with control images and text files
+main = os.path.join(os.getcwd(),"examples", "camera") # folders are inside a main working directory
+
+# AUTOMATICALLY CREATE AND CD TO PROJECT DIR 
+if not os.getcwd() == my_project_dir:
+    if not os.path.exists(my_project_dir):
+        os.makedirs(my_project_dir)
     os.chdir(my_project_dir)
 
-# you need these folders:
-in_dir = "in" # raw colour images
-gray_dir = "gray" # grayscale images with adjusted brightness
-out_dir = "out" # output directory with control images and text files
-
-# they should be inside a main working directory
-main = os.path.join(os.getcwd(), "python", "camera")
-
-# if they don't exist, create them 
+# AUTOMATICALLY CREATE SUBDIRS
 for folder in [in_dir, gray_dir, out_dir]:
     if not os.path.exists(os.path.join(main, folder)):
-        os.makedirs(os.path.join(os.getcwd(), "python", "camera",  folder))
+        os.makedirs(os.path.join(os.getcwd(), main, folder))
 
 
 #%% adjust grayscale
@@ -234,21 +233,21 @@ for i in os.listdir(os.path.join(main, gray_dir)):
 #%% redo bad detections 
 # UNDER DEVELOPMENT 
         
-    bad =  out_dir + "\\bad\\"
-    redo = gray_dir + "\\redo\\"
-    
-    if not os.path.exists(redo):
-        os.makedirs(redo)
-        
-    for file in os.listdir(bad):
-        if os.path.isfile(os.path.join(gray_dir, file)) and not os.path.isfile(os.path.join(redo, file)):
-            img = cv2.imread(os.path.join(gray_dir, file), 0)
-            print(file)
-            factor = 2
-            resized = cv2.resize(img, (0,0), fx=1/factor, fy=1/factor) 
-            rect = cv2.selectROI(resized)
-            cropped = img[int(rect[1]*factor):(int(rect[1])+int(rect[3]))*factor,int(rect[0]*factor):(int(rect[0])+int(rect[2]))*factor]
-            cv2.imwrite(os.path.join(redo, file), cropped)  
+#    bad =  out_dir + "\\bad\\"
+#    redo = gray_dir + "\\redo\\"
+#    
+#    if not os.path.exists(redo):
+#        os.makedirs(redo)
+#        
+#    for file in os.listdir(bad):
+#        if os.path.isfile(os.path.join(gray_dir, file)) and not os.path.isfile(os.path.join(redo, file)):
+#            img = cv2.imread(os.path.join(gray_dir, file), 0)
+#            print(file)
+#            factor = 2
+#            resized = cv2.resize(img, (0,0), fx=1/factor, fy=1/factor) 
+#            rect = cv2.selectROI(resized)
+#            cropped = img[int(rect[1]*factor):(int(rect[1])+int(rect[3]))*factor,int(rect[0]*factor):(int(rect[0])+int(rect[2]))*factor]
+#            cv2.imwrite(os.path.join(redo, file), cropped)  
 
 
 
