@@ -4,10 +4,10 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [introduction](#introduction)
-- [how to run the scripts](#how-to-run-the-scripts)
-- [what is the output?](#what-is-the-output)
-- [how does the code work?](#how-does-the-code-work)
+
+- [installation](#installation)
+- [output/response](#outputresponse)
+- [working principle](#working-principle)
 - [camera script](#camera-script)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
