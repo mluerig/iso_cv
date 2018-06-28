@@ -4,12 +4,11 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-
-  - [introduction](#introduction)
-  - [installation](#installation)
-  - [output/response](#outputresponse)
-  - [working principle](#working-principle)
-  - [camera script](#camera-script)
+- [introduction](#introduction)
+- [installation](#installation)
+- [output/response](#outputresponse)
+- [working principle](#working-principle)
+- [camera script](#camera-script)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
