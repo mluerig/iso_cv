@@ -1,4 +1,4 @@
-# iso-cv
+# iso_cv
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -15,7 +15,7 @@
 
 ## introduction
 
-**iso-cv** (-> **iso**pod-**c**omputer**v**ision) is a collection of scripts for mass phenotyping using the opencv library in python. These scripts have been used with the freshwater isopod *Asellus aquaticus*, for the scientific background refer to [http://luerig.net/Research/#Isopods](http://luerig.net/Research/#Isopods). For more detailed information on the actual code refer to the inline annotations inside the python scripts.
+**iso_cv** (-> **iso**pod**c**omputer**v**ision) is a collection of scripts for mass phenotyping using the opencv library in python. These scripts have been used with the freshwater isopod *Asellus aquaticus*, for the scientific background refer to [http://luerig.net/Research/#Isopods](http://luerig.net/Research/#Isopods). For more detailed information on the actual code refer to the inline annotations inside the python scripts.
 
 **Please feel free to get in touch with me if you need help running the script or have questions about customizing it for your own study-system/organism: [contact @ eawag](http://www.eawag.ch/en/aboutus/portrait/organisation/staff/profile/moritz-luerig/show/)**
 
