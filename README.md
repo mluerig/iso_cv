@@ -19,7 +19,7 @@ DEVELOPMENT IS DISCONTINUED, SCRIPT IS NOW PART OF [phenopype - a phenotyping pi
 
 ## introduction
 
-**iso_cv** (-> **iso**pod**c**omputer**v**ision) is a collection of scripts for mass phenotyping using the opencv library in python. These scripts have been used with the freshwater isopod *Asellus aquaticus*, for the scientific background refer to [my website](https://www.luerig.net/research/isopods). For more detailed information on the actual code refer to the inline annotations inside the python scripts.
+**iso_cv** (-> ISOpod_ComputerVision) is a collection of scripts for mass phenotyping using the opencv library in python. These scripts have been used with the freshwater isopod *Asellus aquaticus*, for the scientific background refer to [my website](https://www.luerig.net/research/isopods). For more detailed information on the actual code refer to the inline annotations inside the python scripts.
 
 Please feel free to get in touch with me if you need help running the script or have questions about customizing it for your own study-system/organism: [https://www.luerig.net/](https://www.luerig.net/).
 
@@ -30,18 +30,22 @@ Please feel free to get in touch with me if you need help running the script or 
 
 ## installation
 
+requirements:
 - python (3.6)
-- opencv (3.3.1) + dependencies (more info here: https://stackoverflow.com/questions/23119413/how-do-i-install-python-opencv-through-conda)
+- opencv (3.3.1)
+- spyder
 
-install, for example, with anaconda (https://www.anaconda.com/download/):
+1. install anaconda (https://www.anaconda.com/download/):
+2. make an environment and install dependencies
 
-```
-conda update conda
-conda install -c conda-forge opencv 
-conda install opencv numpy os math copy
-```
+  ```
+  conda update conda
+  conda create -n iso-cv python=3.6
+  conda install -c conda-forge spyder
+  pip install opencv-python==3.3.1 
+  ```
 
-IMPORTANT: The script is not standalone, so a python interpreter needs to be used to modify and execute the script (e.g. [Spyder](https://github.com/spyder-ide/spyder)). Directories and input data need to be specified beforehand inside the script. At some point in the future I may provide a standalone executable version of the program.
+IMPORTANT: The script needs to be used with an IDE like VScode or Spyder to modify and execute it (e.g. [Spyder](https://github.com/spyder-ide/spyder)). Directories and input data need to be specified beforehand inside the script. At some point in the future I may provide a standalone executable version of the program.
 
 
 ---
