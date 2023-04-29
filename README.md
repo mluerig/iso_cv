@@ -21,7 +21,7 @@ DEVELOPMENT IS DISCONTINUED, SCRIPT IS NOW PART OF [phenopype - a phenotyping pi
 
 **iso_cv** (-> **iso**pod**c**omputer**v**ision) is a collection of scripts for mass phenotyping using the opencv library in python. These scripts have been used with the freshwater isopod *Asellus aquaticus*, for the scientific background refer to [my website](https://www.luerig.net/research/isopods). For more detailed information on the actual code refer to the inline annotations inside the python scripts.
 
-Please feel free to get in touch with me if you need help running the script or have questions about customizing it for your own study-system/organism: [https://www.luerig.net/]([http://www.eawag.ch/en/aboutus/portrait/organisation/staff/profile/moritz-luerig/show/](https://www.luerig.net/))
+Please feel free to get in touch with me if you need help running the script or have questions about customizing it for your own study-system/organism: [https://www.luerig.net/](https://www.luerig.net/).
 
 
 <img src="https://github.com/mluerig/iso-cv/raw/master/assets/iso-cv-fig1.png" />
