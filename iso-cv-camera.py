@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Created: 2017/10/25
-Last Update: 2018/06/26
-Version 0.1.9
+Last Update: 2023/05/09
+Version 0.1.10
 @author: Moritz Lürig
 """
 
-# %% import packages
+#%% import packages
 
 import cv2
 import os
@@ -18,37 +18,40 @@ import fileinput
 from PIL import Image
 
 def get_picture_date(path):                           # extracts dates from pictures
-    return Image.open(path)._getexif()[36867]
+    return Image.open(path).getexif().get(306)
 
-        
+
 #%% directories
 
-# ENTER THE ABSOLUTE PATH TO YOUR PROJECT DIR HERE, THE SUBFOLDERS ARE MADE FOR YOU
-my_project_dir = "E:/Python1/iso-cv"
+# # ENTER THE ABSOLUTE PATH TO YOUR PROJECT DIR HERE, THE SUBFOLDERS ARE MADE FOR YOU
+# my_project_dir = "E:/Python1/iso-cv"
 
-# SUBDIRS - no need to touch this
-in_dir = "in" # directory with raw files -> PUT YOUR IMAGES HERE
-gray_dir = "gray" # converted and histogram adjusted images
-out_dir = "out" # output directory with control images and text files
-main = os.path.join(os.getcwd(),"examples", "camera") # folders are inside a main working directory
+# # SUBDIRS - no need to touch this
+# in_dir = "in" # directory with raw files -> PUT YOUR IMAGES HERE
+# gray_dir = "gray" # converted and histogram adjusted images
+# out_dir = "out" # output directory with control images and text files
+# main = os.path.join(os.getcwd(),"examples", "camera") # folders are inside a main working directory
 
-# AUTOMATICALLY CREATE AND CD TO PROJECT DIR 
-if not os.getcwd() == my_project_dir:
-    if not os.path.exists(my_project_dir):
-        os.makedirs(my_project_dir)
-    os.chdir(my_project_dir)
+# CHOOSE YOU WORKING DIRECTORY (ROOT OF THE DOWNLOADED ISO_CV REPO)
+os.chdir(r"D:\git-repos\mluerig\iso_cv")
+
+# SUBDIRS
+in_dir = r"examples\camera\in" # directory with raw files 
+gray_dir = r"examples\camera\gray" # temporary directory where gray scale images are stored
+out_dir = r"examples\camera\out" # output directory with visual control images and extracted data
 
 # AUTOMATICALLY CREATE SUBDIRS
-for folder in [in_dir, gray_dir, out_dir]:
-    if not os.path.exists(os.path.join(main, folder)):
-        os.makedirs(os.path.join(os.getcwd(), main, folder))
+for folder in [gray_dir, out_dir]:
+    if not os.path.exists(folder):
+        os.makedirs(folder)
 
 
-#%% adjust grayscale
+
+ #%% adjust grayscale
          
 ref = 240 # set reference value, depending on your brightness. can be arbitrary depending on your overall background. all images will have their histograms adjusted to this value
 
-for root, dirs, files in os.walk(os.path.join(main, in_dir)):
+for root, dirs, files in os.walk(os.path.join(in_dir)):
     for i in os.listdir(root):     
         if i.endswith(".jpg") or i.endswith(".JPG"):
             
@@ -59,7 +62,7 @@ for root, dirs, files in os.walk(os.path.join(main, in_dir)):
             new_img_name = label + "_" + date + "_gray" + ".jpg"
                         
     # read imgs, check if exists to prevent overwriting
-            if not os.path.isfile(os.path.join(main, gray_dir, new_img_name)):
+            if not os.path.isfile(os.path.join(gray_dir, new_img_name)):
                 img = cv2.imread(os.path.join(root, i),0)
     
     # reduce resolution by 50% - important if you have a lot of images
@@ -80,7 +83,7 @@ for root, dirs, files in os.walk(os.path.join(main, in_dir)):
                 print(new_img_name)
                 
     # save adjusted image
-                cv2.imwrite(os.path.join(main, gray_dir, new_img_name), img_corr)
+                cv2.imwrite(os.path.join(gray_dir, new_img_name), img_corr)
     
     
 #%% set detection and phenotyping parameters
@@ -110,29 +113,29 @@ rec_kern_open = (9,9) # opening kernel size (how many pixels are removed from bo
 rec_it_open = 6 # opening iteratiuons
 
 ## (iii) OUTPUT TEXT FILE
-if not os.path.isfile(os.path.join(main, out_dir, 'camera.txt')):
-    res_file = open(os.path.join(main, out_dir, 'camera.txt'), 'w')
+if not os.path.isfile(os.path.join(out_dir, 'camera.txt')):
+    res_file = open(os.path.join(out_dir, 'camera.txt'), 'w')
     res_file.write("Source_file" + "\t" + 'Length' +'\t' + 'Area'+ '\t'+ 'Mean'+ '\t'+  'StdDev'+ "\t" + "Scale" + '\n')
     res_file.close()
     
     
 #%% phenotyping procedure
 
-for i in os.listdir(os.path.join(main, gray_dir)):
+for i in os.listdir(gray_dir):
     
     # pick right scale (in this case: 70 pixels = 1 mm)
     scale = 70
     
     # read images
-    if all([not os.path.isfile(os.path.join(main, out_dir,"good", i)),
-    not os.path.isfile(os.path.join(main, out_dir,"redone", i)),
+    if all([not os.path.isfile(os.path.join(out_dir,"good", i)),
+    not os.path.isfile(os.path.join(out_dir,"redone", i)),
     ]):
 
-        if os.path.isfile(os.path.join(main, gray_dir,"redo", i)):
-            img = cv2.imread(os.path.join(main, gray_dir,"redo", i),0)
+        if os.path.isfile(os.path.join(gray_dir,"redo", i)):
+            img = cv2.imread(os.path.join(gray_dir,"redo", i),0)
             first = False
         else:
-            img = cv2.imread(os.path.join(main, gray_dir, i),0)
+            img = cv2.imread(os.path.join(gray_dir, i),0)
             first = True
 
 # =============================================================================
@@ -213,20 +216,20 @@ for i in os.listdir(os.path.join(main, gray_dir)):
             ##### step 4 - write to files #####
             res_string =  i + "\t" + str(length) + "\t" + str(area) + "\t" + str(mean) + "\t" + str(sd) + "\t" + str(scale) + "\n"
 
-            if i in open(os.path.join(main, out_dir, 'camera.txt'), "r").read():
-                for line in fileinput.input(os.path.join(main, out_dir, 'camera.txt'), inplace=1, backup='.bak'):
+            if i in open(os.path.join(out_dir, 'camera.txt'), "r").read():
+                for line in fileinput.input(os.path.join(out_dir, 'camera.txt'), inplace=1, backup='.bak'):
                     if i in line:
                         print(res_string, end="")
                     else:
                         print(line, end="")
             else:
-                with open(os.path.join(main, out_dir, 'camera.txt'), "a") as res_file:
+                with open(os.path.join(out_dir, 'camera.txt'), "a") as res_file:
                     print(res_string, end="", file = res_file)
             
             roi = cv2.cvtColor(roi, cv2.COLOR_GRAY2BGR)
             roi = cv2.circle(roi,(int(x),int(y)), radius,(255,0,0),2)
             roi = cv2.drawContours(roi, [largest2], 0, (0,0,255), 2)  
-        cv2.imwrite(os.path.join(main, out_dir, i), roi)  
+        cv2.imwrite(os.path.join(out_dir, i), roi)  
         print(i)
 
     

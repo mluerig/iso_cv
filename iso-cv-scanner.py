@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Created: 2016/03/31
-Last Update: 2018/06/26
-Version 0.1.3
+Last Update: 2023/05/09
+Version 0.1.4
 @author: Moritz Lürig
 """
 
@@ -17,24 +17,17 @@ import math
         
 #%% directories
 
-# ENTER THE ABSOLUTE PATH TO YOUR PROJECT DIR HERE, THE SUBFOLDERS ARE MADE FOR YOU
-my_project_dir = "E:/Python1/iso-cv"
+# CHOOSE YOU WORKING DIRECTORY (ROOT OF THE DOWNLOADED ISO_CV REPO)
+os.chdir(r"D:\git-repos\mluerig\iso_cv")
 
-# SUBDIRS - no need to touch this
-in_dir = "in" # directory with raw files -> PUT YOUR IMAGES HERE
-out_dir = "out" # output directory with control images and text files
-main = os.path.join(os.getcwd(),"examples", "scanner") # folders are inside a main working directory
+# SUBDIRS
+in_dir = "examples\scanner\in" # directory with raw files 
+out_dir = "examples\scanner\out" # output directory with visual control images and extracted data
 
-# AUTOMATICALLY CREATE AND CD TO PROJECT DIR 
-if not os.getcwd() == my_project_dir:
-    if not os.path.exists(my_project_dir):
-        os.makedirs(my_project_dir)
-    os.chdir(my_project_dir)
-
-# AUTOMATICALLY CREATE SUBDIRS
+# CREATE OUT-DIR IF MISSING
 for folder in [in_dir, out_dir]:
-    if not os.path.exists(os.path.join(main, folder)):
-        os.makedirs(os.path.join(os.getcwd(), main, folder))
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
 
 
 #%% set detection and phenotyping parameters
@@ -61,16 +54,16 @@ rec_it_open_fac = 1
 #%% procedure
     
 # all steps are repeated for each image
-for i in os.listdir(os.path.join(main, in_dir)):
-    if os.path.isfile(os.path.join(main, in_dir, i)):
+for i in os.listdir(in_dir):
+    if os.path.isfile(os.path.join(in_dir, i)):
         
 # make separate text-file for each image, write to out_dir
-        res_file = open(os.path.join(main, out_dir,  i[0:len(i)-4] + '.txt'), 'w')
+        res_file = open(os.path.join(out_dir,  i[0:len(i)-4] + '.txt'), 'w')
         res_file.write('PyLabel' + '\t' + 'X' + '\t'+  'Y'+ '\t'+  'Length'+ '\t'+ 'Area'+ '\t'+ 'Mean'+ '\t'+  'StdDev'+ '\t'+  'Min'+ '\t'+  'Max' + '\n')
         res_file.close()
         
 # load image and convert to grayscale
-        img = cv2.imread(os.path.join(main, in_dir, i))
+        img = cv2.imread(os.path.join(in_dir, i))
         gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         
 # =============================================================================
@@ -163,7 +156,7 @@ for i in os.listdir(os.path.join(main, in_dir)):
 # =============================================================================    
     
 # write ROI info (centroid-coordinates and label) and metrics to file                           
-                    res_file = open(os.path.join(main, out_dir, i[0:len(i)-4] + '.txt'), 'a')
+                    res_file = open(os.path.join(out_dir, i[0:len(i)-4] + '.txt'), 'a')
                     res_file.write(str(idx) + '\t' + str(round(a,2)) + '\t' + str(round(b,2)) + "\t" + str(round(c,2)) + "\t" + str(round(area,2)) + "\t" +str(round(d,2)) + "\t" + str(round(e,2)) + "\t" + str(round(f,2)) + "\t" +  str(round(g,2))+ "\n")
                     res_file.close()
                     
@@ -179,7 +172,7 @@ for i in os.listdir(os.path.join(main, in_dir)):
                     cv2.putText(img, str(idx),(a,b), cv2.FONT_HERSHEY_SIMPLEX, 2,(255,255,255),7,cv2.LINE_AA)
 
 # save control image                    
-        cv2.imwrite(os.path.join(main, out_dir , i[0:len(i)-4] + '_' + 'output.jpg'), img)   
+        cv2.imwrite(os.path.join(out_dir , i[0:len(i)-4] + '_' + 'output.jpg'), img)   
         print(i)
 
 
